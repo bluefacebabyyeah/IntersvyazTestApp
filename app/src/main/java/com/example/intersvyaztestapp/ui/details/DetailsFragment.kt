@@ -76,7 +76,7 @@ class DetailsFragment : Fragment(R.layout.fragment_detail) {
         }
         viewModel.pushesPermissionsGranted.observe(viewLifecycleOwner) {
             if (it == false) {
-                permissionRequester.requestStoragePermissions {
+                permissionRequester.requestPushesPermissions {
                     viewModel.onPushesPermissionsGranted()
                 }
             }

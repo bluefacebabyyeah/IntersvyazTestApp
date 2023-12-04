@@ -66,6 +66,7 @@ class DetailsViewModel @Inject constructor(
 
     fun scheduleReminder(period: IReminderService.Period) {
         pushesPermissionsGranted.value = permissionRepo.hasPushesPermissions()
+        this.period = period
         if (permissionRepo.hasPushesPermissions()) {
             val message = film.value?.let {
                 "Watch this film - ${it.title}"
