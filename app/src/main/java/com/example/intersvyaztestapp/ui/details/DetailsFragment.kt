@@ -13,6 +13,7 @@ import com.example.intersvyaztestapp.R
 import com.example.intersvyaztestapp.databinding.FragmentDetailBinding
 import com.example.intersvyaztestapp.drawableFromId
 import com.example.intersvyaztestapp.toast
+import com.example.intersvyaztestapp.ui.MainActivity.Companion.permissionRequester
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -34,7 +35,7 @@ class DetailsFragment : Fragment(R.layout.fragment_detail) {
                 viewModel.switchFav()
             }
             ivLoad.setOnClickListener {
-                requireContext().toast("Not yet implemented")
+                viewModel.downloadImage()
             }
             ivRemind.setOnClickListener {
                 requireContext().toast("Not yet implemented")
@@ -60,14 +61,19 @@ class DetailsFragment : Fragment(R.layout.fragment_detail) {
             }
         }
         viewModel.desc.observe(viewLifecycleOwner) {
-            if (it != null) {
-                setDesc(it)
+            setDesc(it)
+        }
+        viewModel.permissionsGranted.observe(viewLifecycleOwner) {
+            if (it == false) {
+                permissionRequester.requestStoragePermissions { granted ->
+                    if (granted) viewModel.onPermissionsGranted()
+                }
             }
         }
     }
 
-    private fun setDesc(it: String) {
-        binding.tvDesc.text = it
+    private fun setDesc(it: String?) {
+        binding.tvDesc.text = it ?: "No description"
     }
 
     private fun displayFilmData(it: FilmItem) {
