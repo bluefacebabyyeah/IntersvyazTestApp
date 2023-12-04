@@ -16,6 +16,7 @@ import com.example.intersvyaztestapp.databinding.FragmentDetailBinding
 import com.example.intersvyaztestapp.drawableFromId
 import com.example.intersvyaztestapp.toast
 import com.example.intersvyaztestapp.ui.MainActivity.Companion.permissionRequester
+import com.example.intersvyaztestapp.ui.details.dialogs.SchedulePickerDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -40,7 +41,9 @@ class DetailsFragment : Fragment(R.layout.fragment_detail) {
                 viewModel.downloadImage()
             }
             ivRemind.setOnClickListener {
-                viewModel.scheduleReminder(IReminderService.Period.QUARTER_HOUR)
+                SchedulePickerDialog(requireContext()) {
+                    viewModel.scheduleReminder(it)
+                }.show()
             }
             ivShare.setOnClickListener {
                 viewModel.share(requireActivity() as AppCompatActivity)

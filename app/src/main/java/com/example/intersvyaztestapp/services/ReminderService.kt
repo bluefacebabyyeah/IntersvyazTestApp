@@ -25,6 +25,8 @@ class ReminderService @Inject constructor(
             IReminderService.Period.HOUR -> destDate.add(Calendar.HOUR, 1)
             IReminderService.Period.DAY -> destDate.add(Calendar.HOUR, 24)
             IReminderService.Period.WEEK -> destDate.add(Calendar.HOUR, 24 * 7)
+            IReminderService.Period.MINUTE -> destDate.add(Calendar.SECOND, 60)
+            IReminderService.Period.FIVE_SECS -> destDate.add(Calendar.SECOND, 5)
         }
         val intent = Intent(context, AlarmReceiver::class.java).apply {
             putExtra(MESSAGE_EXTRA_KEY, message)

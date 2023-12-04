@@ -9,4 +9,6 @@
     <string name="dialog_day">Day</string>
     <string name="Dialog_hour">Hour</string>
     <string name="dialog_quarter_hour">15 min</string>
+    <string name="dialog_fs">5 secs</string>
+    <string name="dialog_minute">Minute</string>
 </resources>

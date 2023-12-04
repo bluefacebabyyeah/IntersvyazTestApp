@@ -4,6 +4,6 @@ interface IReminderService {
     fun createReminder(period: Period, message: String)
 
     enum class Period {
-        QUARTER_HOUR, HOUR, DAY, WEEK;
+        QUARTER_HOUR, HOUR, DAY, WEEK, MINUTE, FIVE_SECS;
     }
 }
