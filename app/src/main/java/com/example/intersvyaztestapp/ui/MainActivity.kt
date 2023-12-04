@@ -1,6 +1,7 @@
 package com.example.intersvyaztestapp.ui
 
 import android.Manifest
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
@@ -33,6 +34,13 @@ class MainActivity : AppCompatActivity(), IPermissionRequester {
     override fun requestStoragePermissions(callback: (Boolean) -> Unit) {
         this.callback = callback
         permissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    }
+
+    override fun requestPushesPermissions(callback: (Boolean) -> Unit) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            this.callback = callback
+            permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+        }
     }
 
     private fun onPermissionResult(result: Boolean) = callback(result)

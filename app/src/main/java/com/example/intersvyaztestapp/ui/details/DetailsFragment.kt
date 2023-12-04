@@ -10,7 +10,6 @@ import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import com.example.domain.models.FilmItem
-import com.example.domain.service.IReminderService
 import com.example.intersvyaztestapp.R
 import com.example.intersvyaztestapp.databinding.FragmentDetailBinding
 import com.example.intersvyaztestapp.drawableFromId
@@ -68,10 +67,17 @@ class DetailsFragment : Fragment(R.layout.fragment_detail) {
         viewModel.desc.observe(viewLifecycleOwner) {
             setDesc(it)
         }
-        viewModel.permissionsGranted.observe(viewLifecycleOwner) {
+        viewModel.storagePermissionsGranted.observe(viewLifecycleOwner) {
             if (it == false) {
-                permissionRequester.requestStoragePermissions { granted ->
-                    if (granted) viewModel.onPermissionsGranted()
+                permissionRequester.requestStoragePermissions {
+                    viewModel.onStoragePermissionsGranted()
+                }
+            }
+        }
+        viewModel.pushesPermissionsGranted.observe(viewLifecycleOwner) {
+            if (it == false) {
+                permissionRequester.requestStoragePermissions {
+                    viewModel.onPushesPermissionsGranted()
                 }
             }
         }

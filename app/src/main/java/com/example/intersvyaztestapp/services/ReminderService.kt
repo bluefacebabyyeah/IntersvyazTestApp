@@ -34,7 +34,7 @@ class ReminderService @Inject constructor(
         alarmService.set(
             AlarmManager.RTC_WAKEUP,
             destDate.timeInMillis,
-            PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+            PendingIntent.getBroadcast(context, message.hashCode(), intent, PendingIntent.FLAG_IMMUTABLE)
         )
     }
 }

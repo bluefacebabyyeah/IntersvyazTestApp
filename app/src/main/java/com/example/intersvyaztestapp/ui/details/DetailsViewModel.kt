@@ -31,7 +31,10 @@ class DetailsViewModel @Inject constructor(
     val film = MutableLiveData<FilmItem?>()
     val error = MutableLiveData<String?>()
     val loading = MutableLiveData(false)
-    val permissionsGranted = MutableLiveData<Boolean?>(null)
+    val storagePermissionsGranted = MutableLiveData<Boolean?>(null)
+    val pushesPermissionsGranted = MutableLiveData<Boolean?>(null)
+
+    private var period: IReminderService.Period? = null
 
     fun switchFav() {
         viewModelScope.launch {
@@ -42,12 +45,18 @@ class DetailsViewModel @Inject constructor(
         }
     }
 
-    fun onPermissionsGranted() {
-        permissionsGranted.value = true
+    fun onStoragePermissionsGranted() {
+        storagePermissionsGranted.value = true
+        downloadImage()
+    }
+
+    fun onPushesPermissionsGranted() {
+        pushesPermissionsGranted.value = true
+        scheduleReminder(period ?: return)
     }
 
     fun downloadImage() {
-        permissionsGranted.value = permissionRepo.hasStoragePermissions()
+        storagePermissionsGranted.value = permissionRepo.hasStoragePermissions()
         if (permissionRepo.hasStoragePermissions()) {
             error.value =
                 if (downloadImageUseCase(film.value?.image ?: return)) "Download started"
@@ -56,7 +65,14 @@ class DetailsViewModel @Inject constructor(
     }
 
     fun scheduleReminder(period: IReminderService.Period) {
-        createScheduledRemindUseCase(period, "aboASba")
+        pushesPermissionsGranted.value = permissionRepo.hasPushesPermissions()
+        if (permissionRepo.hasPushesPermissions()) {
+            val message = film.value?.let {
+                "Watch this film - ${it.title}"
+            } ?: return
+            createScheduledRemindUseCase(period, message)
+            error.value = "Notification scheduled successfully"
+        }
     }
 
     fun share(activity: AppCompatActivity) {

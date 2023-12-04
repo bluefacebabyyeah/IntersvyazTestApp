@@ -15,6 +15,10 @@ class PermissionRepo @Inject constructor(
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ||
             hasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
+    fun hasPushesPermissions() =
+        Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
+            hasPermission(Manifest.permission.POST_NOTIFICATIONS)
+
     private fun hasPermission(permission: String) =
         ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED
 }
