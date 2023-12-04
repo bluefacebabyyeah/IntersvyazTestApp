@@ -39,7 +39,7 @@ class ListViewModel @Inject constructor(
          }
      }
 
-    fun onItemClick(item: FilmItem) {
+    fun switchFav(item: FilmItem) {
         viewModelScope.launch {
             val foundItem = items.value?.firstOrNull {
                 item.title == it.title

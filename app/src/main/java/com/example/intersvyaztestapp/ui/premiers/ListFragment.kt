@@ -5,16 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.domain.models.FilmItem
 import com.example.intersvyaztestapp.R
 import com.example.intersvyaztestapp.databinding.FragmentListBinding
 import com.example.intersvyaztestapp.toast
+import com.example.intersvyaztestapp.ui.details.DetailsFragmentArgs
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ListFragment : Fragment(R.layout.fragment_list) {
-
     private lateinit var adapter: FilmItemAdapter
     private val viewModel by viewModels<ListViewModel>()
 
@@ -23,9 +25,10 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = FilmItemAdapter {
-            viewModel.onItemClick(it)
-        }
+        adapter = FilmItemAdapter(
+            onClick = { openDetailsPage(it) },
+            onFavClick = { viewModel.switchFav(it) }
+        )
         binding.rvElements.adapter = adapter
         binding.rvElements.layoutManager = LinearLayoutManager(requireContext())
 
@@ -48,4 +51,10 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 
         viewModel.loadItems()
     }
+
+    private fun openDetailsPage(filmItem: FilmItem) =
+        findNavController().navigate(
+            resId = R.id.action_listFragment_to_detailsFragment,
+            args = DetailsFragmentArgs(filmItem.id).toBundle(),
+        )
 }

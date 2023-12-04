@@ -37,6 +37,9 @@ class FilmItemViewHolder(
             root.setOnClickListener{
                 (bindingAdapter as FilmItemAdapter).onClick(item)
             }
+            ivFav.setOnClickListener {
+                (bindingAdapter as FilmItemAdapter).onFavClick(item)
+            }
         }
     }
 }

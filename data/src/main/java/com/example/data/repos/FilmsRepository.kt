@@ -4,7 +4,6 @@ import com.example.data.api.KinopoiskApi
 import com.example.data.db.dao.FavDao
 import com.example.data.db.dao.FilmDao
 import com.example.data.db.models.FavEntity.Companion.toFavEntity
-import com.example.data.db.models.FilmEntity
 import com.example.data.db.models.FilmEntity.Companion.toFilmEntity
 import com.example.domain.models.FilmDescription
 import com.example.domain.models.FilmItem
@@ -30,7 +29,7 @@ class FilmsRepository @Inject constructor(
                 val items = api.getPremieres(
                     year = 2023,
                     month = "December",
-                    token = "72f48831-3a9a-457c-b24e-acbf7e2b9e90"
+                    token = "72f48831-3a9a-457c-b24e-acbf7e2b9e90",
                 ).items
                 items.map {
                     it.toDomain(
@@ -51,13 +50,18 @@ class FilmsRepository @Inject constructor(
 
     override suspend fun saveToCache(items: List<FilmItem>) =
         withContext(Dispatchers.IO) {
-            filmDao.clearAll()
+            filmDao.getAll().forEach {
+                if (favDao.findById(it.id) == null) filmDao.deleteById(it.id)
+            }
             filmDao.insertAll(items.map { it.toFilmEntity() })
         }
 
     override suspend fun getDescriptionById(id: Int) =
         withContext(Dispatchers.IO) {
-            val description = api.getDescriptionById(id)
+            val description = api.getDescriptionById(
+                id = id,
+                token = "72f48831-3a9a-457c-b24e-acbf7e2b9e90",
+            )
             FilmDescription(
                 id,
                 description.description

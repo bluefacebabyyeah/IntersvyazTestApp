@@ -9,6 +9,7 @@ import com.example.intersvyaztestapp.databinding.ItemFilmBinding
 
 class FilmItemAdapter(
     val onClick: (FilmItem) -> Unit,
+    val onFavClick: (FilmItem) -> Unit,
 ) : ListAdapter<FilmItem, FilmItemViewHolder>(object : DiffUtil.ItemCallback<FilmItem>(){
     override fun areItemsTheSame(oldItem: FilmItem, newItem: FilmItem): Boolean {
         return oldItem == newItem

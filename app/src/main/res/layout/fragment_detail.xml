@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="20dp">
+    android:padding="20dp"
+    tools:context=".ui.details.DetailsFragment">
 
     <TextView
         android:id="@+id/tvTitle"
@@ -126,5 +127,15 @@ Nulla sagittis nisl sed justo consequat viverra. Proin tortor mauris, sagittis s
 
 Maecenas dignissim odio eget elit vulputate tempus. Ut fermentum leo lacus, sit amet facilisis arcu faucibus non. Vestibulum dictum urna nulla, vel pretium leo vehicula a. Donec est enim, mollis eu dolor et, tincidunt semper sem. In porta, urna ut dictum laoreet, tellus metus tempor nisl, vel vestibulum erat magna id mauris. Donec sit amet justo in risus tristique efficitur. Curabitur sagittis dolor vel nisl bibendum semper. Ut non imperdiet ante. Pellentesque at feugiat nisl. Morbi eu lorem tempor, sodales ex ac, bibendum mi."
         />
+
+    <ProgressBar
+        android:id="@+id/pbLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
