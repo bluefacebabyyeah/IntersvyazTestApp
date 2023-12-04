@@ -2,6 +2,7 @@ package com.example.intersvyaztestapp.ui.details
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -41,7 +42,7 @@ class DetailsFragment : Fragment(R.layout.fragment_detail) {
                 requireContext().toast("Not yet implemented")
             }
             ivShare.setOnClickListener {
-                requireContext().toast("Not yet implemented")
+                viewModel.share(requireActivity() as AppCompatActivity)
             }
         }
     }

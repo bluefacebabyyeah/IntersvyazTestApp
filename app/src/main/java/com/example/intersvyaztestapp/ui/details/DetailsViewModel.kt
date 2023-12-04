@@ -1,5 +1,6 @@
 package com.example.intersvyaztestapp.ui.details
 
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,6 +8,7 @@ import com.example.domain.models.FilmItem
 import com.example.domain.usecases.DownloadImageUseCase
 import com.example.domain.usecases.GetDescriptionByIdUseCase
 import com.example.domain.usecases.GetFilmByIdUseCase
+import com.example.domain.usecases.ShareImageUseCase
 import com.example.domain.usecases.SwitchFavUseCase
 import com.example.intersvyaztestapp.services.PermissionRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,6 +21,7 @@ class DetailsViewModel @Inject constructor(
     private val getDescriptionByIdUseCase: GetDescriptionByIdUseCase,
     private val switchFavUseCase: SwitchFavUseCase,
     private val downloadImageUseCase: DownloadImageUseCase,
+    private val shareImageUseCase: ShareImageUseCase,
     private val permissionRepo: PermissionRepo,
 ): ViewModel() {
     val desc = MutableLiveData<String?>()
@@ -47,6 +50,10 @@ class DetailsViewModel @Inject constructor(
                 if (downloadImageUseCase(film.value?.image ?: return)) "Download started"
                 else "Failed to download image"
         }
+    }
+
+    fun share(activity: AppCompatActivity) {
+        shareImageUseCase(activity, film.value?.image ?: return)
     }
 
     fun loadData(id: Int) {
