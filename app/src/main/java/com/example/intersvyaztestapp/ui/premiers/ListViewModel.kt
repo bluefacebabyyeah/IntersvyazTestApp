@@ -7,6 +7,7 @@ import com.example.domain.models.FilmItem
 import com.example.domain.usecases.GetFilmsUseCase
 import com.example.domain.usecases.SaveCacheUseCase
 import com.example.domain.usecases.SwitchFavUseCase
+import com.example.intersvyaztestapp.services.EventBus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,13 +17,28 @@ class ListViewModel @Inject constructor(
     private val getFilmsUseCase: GetFilmsUseCase,
     private val switchFavUseCase: SwitchFavUseCase,
     private val saveCacheUseCase: SaveCacheUseCase,
+    private val eventBus: EventBus,
 ): ViewModel() {
     val items = MutableLiveData<MutableList<FilmItem>>()
     val modifiedIndex = MutableLiveData<Int?>()
+    val openDetailsId = MutableLiveData<Int?>()
     val error = MutableLiveData<String?>()
     val loading = MutableLiveData(false)
 
     private var allFilms = mutableListOf<FilmItem>()
+
+    init {
+        viewModelScope.launch {
+            eventBus.events.collect {
+                when (it) {
+                    is EventBus.Event.OpenDetailsPage -> {
+                        openDetailsId.value = it.id
+                        openDetailsId.value = null
+                    }
+                }
+            }
+        }
+    }
 
     fun loadItems() {
          viewModelScope.launch {

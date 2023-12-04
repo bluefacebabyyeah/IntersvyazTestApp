@@ -71,7 +71,7 @@ class DetailsViewModel @Inject constructor(
             val message = film.value?.let {
                 "Watch this film - ${it.title}"
             } ?: return
-            createScheduledRemindUseCase(period, message)
+            createScheduledRemindUseCase(period, message, film.value?.id ?: -1)
             error.value = "Notification scheduled successfully"
         }
     }

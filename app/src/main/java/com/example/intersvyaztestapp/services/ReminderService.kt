@@ -15,9 +15,10 @@ class ReminderService @Inject constructor(
 ): IReminderService {
     companion object {
         const val MESSAGE_EXTRA_KEY = "msg"
+        const val ID_EXTRA_KEY = "id"
     }
 
-    override fun createReminder(period: IReminderService.Period, message: String) {
+    override fun createReminder(period: IReminderService.Period, message: String, id: Int) {
         val alarmService = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val destDate = Calendar.getInstance()
         when (period) {
@@ -30,6 +31,7 @@ class ReminderService @Inject constructor(
         }
         val intent = Intent(context, AlarmReceiver::class.java).apply {
             putExtra(MESSAGE_EXTRA_KEY, message)
+            putExtra(ID_EXTRA_KEY, id)
         }
         alarmService.set(
             AlarmManager.RTC_WAKEUP,

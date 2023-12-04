@@ -8,7 +8,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.example.domain.models.FilmItem
 import com.example.intersvyaztestapp.R
 import com.example.intersvyaztestapp.databinding.FragmentListBinding
 import com.example.intersvyaztestapp.toast
@@ -53,20 +52,25 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                 adapter.notifyItemChanged(it)
             }
         }
+        viewModel.openDetailsId.observe(viewLifecycleOwner) {
+            if (it != null) {
+                openDetailsPage(it)
+            }
+        }
     }
 
     private fun setAdapter() {
         adapter = FilmItemAdapter(
-            onClick = { openDetailsPage(it) },
+            onClick = { openDetailsPage(it.id) },
             onFavClick = { viewModel.switchFav(it) }
         )
         binding.rvElements.adapter = adapter
         binding.rvElements.layoutManager = LinearLayoutManager(requireContext())
     }
 
-    private fun openDetailsPage(filmItem: FilmItem) =
+    private fun openDetailsPage(id: Int) =
         findNavController().navigate(
             resId = R.id.action_listFragment_to_detailsFragment,
-            args = DetailsFragmentArgs(filmItem.id).toBundle(),
+            args = DetailsFragmentArgs(id).toBundle(),
         )
 }
