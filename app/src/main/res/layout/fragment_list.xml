@@ -5,17 +5,25 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.premiers.ListFragment"
-    android:layout_margin="10dp">
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginTop="10dp">
 
     <EditText
-        android:layout_width="300dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:autofillHints="no"
+        android:inputType="text"
+        android:hint="@string/hint_search"
+        app:layout_constraintEnd_toStartOf="@id/b_search"
         android:id="@+id/etSearch" />
+
     <Button
+        android:id="@+id/b_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/b_search"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -23,10 +31,11 @@
         android:id="@+id/rvElements"
         android:layout_marginTop="25dp"
         android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etSearch"
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:listitem="@layout/item_film"/>
 
     <ProgressBar
