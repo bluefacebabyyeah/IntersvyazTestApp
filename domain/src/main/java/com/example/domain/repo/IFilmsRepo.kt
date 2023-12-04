@@ -15,4 +15,6 @@ interface IFilmsRepo {
     suspend fun saveToCache(items: List<FilmItem>)
 
     suspend fun getFilmFromCache(id: Int): FilmItem?
+
+    suspend fun getAllFavs(): List<FilmItem>
 }

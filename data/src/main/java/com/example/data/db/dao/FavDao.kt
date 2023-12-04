@@ -12,6 +12,9 @@ interface FavDao {
     @Query("select * from faventity where filmId = :id")
     suspend fun findById(id: Int): FavEntity?
 
+    @Query("select * from faventity")
+    suspend fun getAll(): List<FavEntity>
+
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insert(entity: FavEntity)
 

@@ -39,6 +39,11 @@ class FilmsRepository @Inject constructor(
             }
         }
 
+    override suspend fun getAllFavs() =
+        withContext(Dispatchers.IO) {
+            favDao.getAll().mapNotNull { filmDao.getById(it.filmId)?.toDomainModel(true) }
+        }
+
     override suspend fun getFilmFromCache(id: Int) =
         withContext(Dispatchers.IO) {
             filmDao.getById(id)?.let {
