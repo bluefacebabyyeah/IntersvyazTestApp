@@ -24,14 +24,19 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setAdapter()
+        observeState()
+        setView()
+        viewModel.loadItems()
+    }
 
-        adapter = FilmItemAdapter(
-            onClick = { openDetailsPage(it) },
-            onFavClick = { viewModel.switchFav(it) }
-        )
-        binding.rvElements.adapter = adapter
-        binding.rvElements.layoutManager = LinearLayoutManager(requireContext())
+    private fun setView() {
+        binding.bSearch.setOnClickListener {
+            viewModel.filterItems(binding.etSearch.text.toString().ifBlank { "" })
+        }
+    }
 
+    private fun observeState() {
         viewModel.items.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
@@ -43,13 +48,20 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         viewModel.loading.observe(viewLifecycleOwner) {
             binding.pbLoading.isVisible = it
         }
-        viewModel.modifiedIndex.observe(viewLifecycleOwner){
+        viewModel.modifiedIndex.observe(viewLifecycleOwner) {
             if (it != null) {
                 adapter.notifyItemChanged(it)
             }
         }
+    }
 
-        viewModel.loadItems()
+    private fun setAdapter() {
+        adapter = FilmItemAdapter(
+            onClick = { openDetailsPage(it) },
+            onFavClick = { viewModel.switchFav(it) }
+        )
+        binding.rvElements.adapter = adapter
+        binding.rvElements.layoutManager = LinearLayoutManager(requireContext())
     }
 
     private fun openDetailsPage(filmItem: FilmItem) =

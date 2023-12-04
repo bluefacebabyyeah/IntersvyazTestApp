@@ -22,11 +22,14 @@ class ListViewModel @Inject constructor(
     val error = MutableLiveData<String?>()
     val loading = MutableLiveData(false)
 
-     fun loadItems() {
+    private var allFilms = mutableListOf<FilmItem>()
+
+    fun loadItems() {
          viewModelScope.launch {
              loading.value = true
              try {
                  val newItems = getFilmsUseCase.invoke(false).toMutableList()
+                 allFilms = newItems
                  items.value = newItems
                  saveCacheUseCase(newItems)
              } catch (e: Exception) {
@@ -38,6 +41,12 @@ class ListViewModel @Inject constructor(
              loading.value = false
          }
      }
+
+    fun filterItems(query: String) {
+        items.value =
+            if (query.isEmpty()) allFilms
+            else allFilms.filter { query.lowercase() in it.title.lowercase() }.toMutableList()
+    }
 
     fun switchFav(item: FilmItem) {
         viewModelScope.launch {
