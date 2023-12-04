@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.models.FilmItem
+import com.example.domain.service.IReminderService
+import com.example.domain.usecases.CreateScheduledRemindUseCase
 import com.example.domain.usecases.DownloadImageUseCase
 import com.example.domain.usecases.GetDescriptionByIdUseCase
 import com.example.domain.usecases.GetFilmByIdUseCase
@@ -22,6 +24,7 @@ class DetailsViewModel @Inject constructor(
     private val switchFavUseCase: SwitchFavUseCase,
     private val downloadImageUseCase: DownloadImageUseCase,
     private val shareImageUseCase: ShareImageUseCase,
+    private val createScheduledRemindUseCase: CreateScheduledRemindUseCase,
     private val permissionRepo: PermissionRepo,
 ): ViewModel() {
     val desc = MutableLiveData<String?>()
@@ -50,6 +53,10 @@ class DetailsViewModel @Inject constructor(
                 if (downloadImageUseCase(film.value?.image ?: return)) "Download started"
                 else "Failed to download image"
         }
+    }
+
+    fun scheduleReminder(period: IReminderService.Period) {
+        createScheduledRemindUseCase(period, "aboASba")
     }
 
     fun share(activity: AppCompatActivity) {

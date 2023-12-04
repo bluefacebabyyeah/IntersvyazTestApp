@@ -10,6 +10,7 @@ import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import com.example.domain.models.FilmItem
+import com.example.domain.service.IReminderService
 import com.example.intersvyaztestapp.R
 import com.example.intersvyaztestapp.databinding.FragmentDetailBinding
 import com.example.intersvyaztestapp.drawableFromId
@@ -39,7 +40,7 @@ class DetailsFragment : Fragment(R.layout.fragment_detail) {
                 viewModel.downloadImage()
             }
             ivRemind.setOnClickListener {
-                requireContext().toast("Not yet implemented")
+                viewModel.scheduleReminder(IReminderService.Period.QUARTER_HOUR)
             }
             ivShare.setOnClickListener {
                 viewModel.share(requireActivity() as AppCompatActivity)

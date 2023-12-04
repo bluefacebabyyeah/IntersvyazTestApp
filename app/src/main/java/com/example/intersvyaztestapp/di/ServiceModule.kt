@@ -1,8 +1,10 @@
 package com.example.intersvyaztestapp.di
 
 import com.example.domain.service.IDownloadService
+import com.example.domain.service.IReminderService
 import com.example.domain.service.IShareService
 import com.example.intersvyaztestapp.services.DownloadService
+import com.example.intersvyaztestapp.services.ReminderService
 import com.example.intersvyaztestapp.services.ShareService
 import dagger.Binds
 import dagger.Module
@@ -20,4 +22,8 @@ abstract class ServiceModule {
     @Singleton
     @Binds
     abstract fun bindShareService(service: ShareService): IShareService
+
+    @Singleton
+    @Binds
+    abstract fun bindReminderService(service: ReminderService): IReminderService
 }

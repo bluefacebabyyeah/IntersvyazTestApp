@@ -5,4 +5,8 @@
     <string name="hint_search">Search films...</string>
     <string name="b_search">Search</string>
     <string name="tv_favs_title">Favourites</string>
+    <string name="dialog_week">Week</string>
+    <string name="dialog_day">Day</string>
+    <string name="Dialog_hour">Hour</string>
+    <string name="dialog_quarter_hour">15 min</string>
 </resources>
