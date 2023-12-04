@@ -2,9 +2,8 @@ package com.example.intersvyaztestapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import com.example.intersvyaztestapp.R
-import com.example.intersvyaztestapp.databinding.ActivityMainBinding
+import com.example.intersvyaztestapp.ui.premiers.ListFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

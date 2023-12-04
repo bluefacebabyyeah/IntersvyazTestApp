@@ -10,5 +10,5 @@ data class FilmItem(
     val genre: List<String>,
     val countries: List<String>,
 
-    val isChecked: Boolean
+    val isFavourite: Boolean
 )

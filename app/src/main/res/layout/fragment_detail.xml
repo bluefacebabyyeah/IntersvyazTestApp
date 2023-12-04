@@ -1,35 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".ui.DetailFragment"
-    android:padding="20dp"
-    android:layout_margin="2dp">
-    <LinearLayout
-        android:layout_width="50dp"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <ImageView
-            android:src="@drawable/baseline_favorite_border_24"
-            android:id="@+id/ivFav"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="top"/>
-    </LinearLayout>
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="20dp">
+
     <TextView
         android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="12dp"
         android:textStyle="bold"
-        android:textSize="30sp"
-        android:text="Aboba"/>
-    <TextView
-        android:id="@+id/tvDescription"
-        android:layout_width="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_picture"
+        app:layout_constraintTop_toTopOf="@id/iv_picture"
+        tools:text="Aboba"/>
+
+    <ImageView
+        android:id="@+id/iv_picture"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:background="#ddd"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="10dp"
+        android:contentDescription="@null"
+        android:focusable="false"
+        tools:src="@drawable/ph_movie" />
+
+    <LinearLayout
+        android:id="@+id/ll_info"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="-90dp"
-        android:text="@string/detailed_description"/>
-</LinearLayout>
+        android:layout_marginBottom="12dp"
+        android:layout_marginStart="12dp"
+        app:layout_constraintBottom_toTopOf="@id/ll_buttons"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_picture"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvYearCountry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="2009, Russia"
+            android:maxLines="1"
+            android:textSize="16sp"
+            android:ellipsize="end"/>
+
+        <TextView
+            android:id="@+id/tvGenres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Criminal, thriller"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:gravity="bottom"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_buttons"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toEndOf="@id/iv_picture"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/iv_picture"
+        android:layout_marginTop="12dp"
+        android:layout_marginHorizontal="12dp">
+
+        <ImageView
+            android:id="@+id/ivFav"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/baseline_favorite_border_24"
+            android:contentDescription="@null"/>
+
+        <ImageView
+            android:id="@+id/ivShare"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_share"
+            android:contentDescription="@null"/>
+
+        <ImageView
+            android:id="@+id/ivLoad"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_load"
+            android:contentDescription="@null"/>
+
+        <ImageView
+            android:id="@+id/ivRemind"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_remind"
+            android:contentDescription="@null"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="8"
+        app:layout_constraintTop_toBottomOf="@id/iv_picture"
+        android:layout_marginTop="12dp"
+        android:ellipsize="end"
+        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla neque elit, tempus eu risus id, fermentum sollicitudin felis. Phasellus in lacus venenatis nulla pretium efficitur non ultrices ante. Integer et sodales ex. Quisque et risus ligula. Nam mi tellus, lacinia in mattis ac, ultricies vitae ante. Sed vestibulum urna tortor, vitae finibus nisi convallis at. Curabitur facilisis porta ante ac iaculis. Vivamus mollis nulla tellus, a lobortis augue mattis non.
+
+Praesent iaculis malesuada ipsum sed vehicula. Aliquam ut mi maximus, dapibus mi nec, aliquam sem. Fusce ut magna orci. Sed eu pulvinar elit. Praesent laoreet velit non enim sodales sagittis at at nibh. Vestibulum rhoncus nibh a lorem lobortis imperdiet. Phasellus sed turpis non ex vestibulum pharetra. Suspendisse placerat ipsum vestibulum nibh egestas molestie. Proin dictum dignissim orci, at aliquam felis consectetur id. Ut eleifend metus ultricies nisi sollicitudin fringilla. Nulla libero libero, ultrices ut mi eu, vulputate sodales nunc. Maecenas mattis metus a neque fringilla feugiat. Integer faucibus purus in diam porta rhoncus. Cras id ligula et odio commodo mollis.
+
+Nam a fringilla nunc, vitae eleifend lectus. Phasellus ac tempus libero. Maecenas vel lorem ac nunc molestie eleifend. Integer nisi felis, tincidunt sed hendrerit ac, aliquet sit amet neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam egestas bibendum neque ac mollis. Ut cursus sollicitudin arcu, vitae finibus sem facilisis vitae.
+
+Nulla sagittis nisl sed justo consequat viverra. Proin tortor mauris, sagittis sed fringilla in, dictum et felis. Quisque dui lorem, tincidunt vel lacus id, varius suscipit nisi. Ut suscipit purus id tellus semper volutpat. Vestibulum varius facilisis ante ut porttitor. Nunc posuere mi eu urna placerat consectetur. Morbi at diam quam. Donec ut dignissim orci.
+
+Maecenas dignissim odio eget elit vulputate tempus. Ut fermentum leo lacus, sit amet facilisis arcu faucibus non. Vestibulum dictum urna nulla, vel pretium leo vehicula a. Donec est enim, mollis eu dolor et, tincidunt semper sem. In porta, urna ut dictum laoreet, tellus metus tempor nisl, vel vestibulum erat magna id mauris. Donec sit amet justo in risus tristique efficitur. Curabitur sagittis dolor vel nisl bibendum semper. Ut non imperdiet ante. Pellentesque at feugiat nisl. Morbi eu lorem tempor, sodales ex ac, bibendum mi."
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

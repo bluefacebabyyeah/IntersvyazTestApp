@@ -1,6 +1,5 @@
 package com.example.data.models
 
-import com.example.data.api.KinopoiskApi
 import com.example.domain.models.FilmItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -25,18 +24,16 @@ data class FilmDto(
         val country: String
     )
 
-    suspend fun toDomain(): FilmItem {
-        return withContext(Dispatchers.IO){
-            FilmItem(
-                id = kinopoiskId,
-                title = nameRu,
-                image = posterUrl,
-                duration = duration,
-                year = year,
-                genre = genres.map{ it.genre },
-                countries = countries.map { it.country },
-                isChecked = false
-            )
-        }
+    fun toDomain(isFav: Boolean): FilmItem {
+        return FilmItem(
+            id = kinopoiskId,
+            title = nameRu,
+            image = posterUrl,
+            duration = duration,
+            year = year,
+            genre = genres.map{ it.genre },
+            countries = countries.map { it.country },
+            isFavourite = isFav,
+        )
     }
 }

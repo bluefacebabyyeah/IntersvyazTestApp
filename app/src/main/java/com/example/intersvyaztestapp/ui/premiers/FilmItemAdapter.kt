@@ -1,4 +1,4 @@
-package com.example.intersvyaztestapp.ui
+package com.example.intersvyaztestapp.ui.premiers
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

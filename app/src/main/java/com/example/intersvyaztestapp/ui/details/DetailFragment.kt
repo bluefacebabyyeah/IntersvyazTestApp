@@ -1,4 +1,4 @@
-package com.example.intersvyaztestapp.ui
+package com.example.intersvyaztestapp.ui.details
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
